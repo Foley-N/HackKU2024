@@ -20,26 +20,31 @@ def import_csv():
 def search(data, wordList):
     if any(word in str(data).lower() for word in wordList):
         return True
-
-print(search('the quick', ['quick']))
+    
+def searchList(list, wordList):
+    return map((lambda x : search(x, wordList)), list)
 
 df = import_csv()
 
-mask = df.apply(lambda x: x.map(lambda s: search(s, ['$AMZN', 'cnn', 'dinosaur'])))
+sentences = df['text'].tolist()
+mask = searchList(sentences, ['the'])
 
-testString = "the quick brown fox"
-print(search(testString, ['fox']))
+# print(list(mask))
 
-"""sentences = df['text'].tolist()
+# filtered_df = df.loc[mask.any(axis=1)]
+
+"""testString = "the quick brown fox"
+print(search(testString, ['fox']))"""
+
+"""print(df.head())
+
+sentences = df['text'].tolist()
 
 analyzer = SentimentIntensityAnalyzer()
 
 sentence = analyzer.polarity_scores(sentences[115])
 print(sentences[115])
 print(sentence)"""
-
-filtered_df = df.loc[mask.any(axis=1)]
-print(filtered_df)
 
 """for sentence in sentences:
     vs = analyzer.polarity_scores(sentence)
