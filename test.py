@@ -16,7 +16,6 @@ def import_csv():
     return df
 
 
-
 df = import_csv()
 
 print(df.head())
