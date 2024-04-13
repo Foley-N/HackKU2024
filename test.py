@@ -22,12 +22,9 @@ def search(data, wordList):
         return True
     else:
         return False
-    
-def searchList(list, wordList):
-    return map((lambda x : search(x, wordList)), list)
 
 def searchDF(df, list, wordList):
-    mask = searchList(list, wordList)
+    mask = map((lambda x : search(x, wordList)), list)
     bools = pd.Series(mask)
     return df[bools.values]
 
