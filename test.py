@@ -21,15 +21,17 @@ def search(data, wordList):
     if any(word in str(data).lower() for word in wordList):
         return True
     
-def searchList(list, wordList):
+def searchList(list, wordList): # list is the list your searching through and Word list is the list of words you want to search for
     return map((lambda x : search(x, wordList)), list)
 
 df = import_csv()
 
 sentences = df['text'].tolist()
-mask = searchList(sentences, ['the'])
+mask = searchList(sentences, ['fox'])
 
-# print(list(mask))
+print(list(mask))
+
+
 
 # filtered_df = df.loc[mask.any(axis=1)]
 
