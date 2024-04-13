@@ -26,8 +26,9 @@ sentences = df['text'].tolist()
 
 analyzer = SentimentIntensityAnalyzer()
 
-vs = analyzer.polarity_scores(sentences[123])
-print(vs)
+sentence = analyzer.polarity_scores(sentences[115])
+print(sentences[115])
+print(sentence)
 
 """for sentence in sentences:
     vs = analyzer.polarity_scores(sentence)
