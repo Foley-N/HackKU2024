@@ -30,6 +30,6 @@ sentence = analyzer.polarity_scores(sentences[115])
 print(sentences[115])
 print(sentence)
 
-"""for sentence in sentences:
+for sentence in sentences:
     vs = analyzer.polarity_scores(sentence)
-    print("{:-<65} {}".format(sentence, str(vs)))"""
+    print("{:-<65} {}".format(sentence, str(vs))) 
