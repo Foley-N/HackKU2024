@@ -8,7 +8,7 @@ def import_csv():
     if OS == "Linux":
         df = pd.read_csv(os.getcwd() + "/tweets/tweets_labelled_09042020_16072020.csv", sep=";")
     elif OS == "Windows":
-        pass
+        df = pd.read_csv(os.getcwd() + "\\tweets\\tweets_labelled_09042020_16072020.csv", sep=";")
     else:
         print("nope")
     
