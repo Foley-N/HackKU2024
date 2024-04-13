@@ -18,4 +18,17 @@ def import_csv():
 
 df = import_csv()
 
-print(df.head())
+# print(df.head())
+
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+sentences = df['text'].tolist()
+
+analyzer = SentimentIntensityAnalyzer()
+
+vs = analyzer.polarity_scores(sentences[123])
+print(vs)
+
+"""for sentence in sentences:
+    vs = analyzer.polarity_scores(sentence)
+    print("{:-<65} {}".format(sentence, str(vs)))"""
