@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import platform
+import vaderSentiment as vs
 
 def import_csv():
     OS = platform.system()
@@ -13,7 +14,6 @@ def import_csv():
         print("nope")
     
     return df
-
 
 
 df = import_csv()
