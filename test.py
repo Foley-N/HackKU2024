@@ -25,9 +25,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 sentences = df['text'].tolist()
 
 analyzer = SentimentIntensityAnalyzer()
-for i in range(100):
-    vs = analyzer.polarity_scores(sentences[i])
-    print(i, vs)
+
+sentence = analyzer.polarity_scores(sentences[115])
+print(sentences[115])
+print(sentence)
 
 """for sentence in sentences:
     vs = analyzer.polarity_scores(sentence)
