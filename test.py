@@ -27,12 +27,10 @@ df = import_csv()
 
 mask = df.apply(lambda x: x.map(lambda s: search(s, ['$AMZN', 'cnn', 'dinosaur'])))
 
-"""testString = "the quick brown fox"
-print(search(testString, ['fox']))"""
+testString = "the quick brown fox"
+print(search(testString, ['fox']))
 
-"""print(df.head())
-
-sentences = df['text'].tolist()
+"""sentences = df['text'].tolist()
 
 analyzer = SentimentIntensityAnalyzer()
 
@@ -43,6 +41,6 @@ print(sentence)"""
 filtered_df = df.loc[mask.any(axis=1)]
 print(filtered_df)
 
-for sentence in sentences:
+"""for sentence in sentences:
     vs = analyzer.polarity_scores(sentence)
-    print("{:-<65} {}".format(sentence, str(vs))) 
+    print("{:-<65} {}".format(sentence, str(vs))) """
