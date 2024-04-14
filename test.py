@@ -89,6 +89,7 @@ amazonTweets['neu'] = sentimentDF['neu'].values
 amazonTweets['pos'] = sentimentDF['pos'].values
 amazonTweets['compound'] = sentimentDF['compound'].values
 
+amazonTweets = (datetimeTOdate(amazonTweets))
 print(amazonTweets)
 
 negativeSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] < 0)
