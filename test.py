@@ -40,6 +40,16 @@ def filter_by_dates(df, dates):
     mask = df['created_at'].isin(dates)
     return df[mask]
 
+def searchDate(date, dateList):
+    if any(date in str(date) for date in dateList):
+        return True
+    else:
+        return False
+
+def datetimeTOdate(df):
+    df['created_at'] = pd.to_datetime(df['created_at']).dt.date
+    return df
+
 df = import_csv()
 
 sentences = df['text'].tolist()
@@ -52,7 +62,7 @@ dates = (dateRangeDist(2020, 4, 15, 2020, 4, 30))
 
 #print(filterByDate(newDF, dates, ['$AMZN']))
 print(dates)
-print(filter_by_dates(newDF, dates))
+print(datetimeTOdate(newDF))
 
 amazonText = amazonTweets['text'].tolist()
 
