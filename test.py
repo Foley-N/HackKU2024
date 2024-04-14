@@ -96,14 +96,45 @@ print(amazonTweets)
 negativeSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] < 0)
 positiveSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] > 0)
 
-values = amazonTweets.groupby(['created_at']).mean('compound')
+values = amazonTweets.groupby(['created_at'], as_index=False).mean('compound')
 
-fig = plt.figure()
+positiveSentimentList = values['compound'].tolist()
+negativeSentimentList = values['compound'].tolist()
+
+for x in range(0, len(positiveSentimentList)): 
+    if positiveSentimentList[x] < 0: 
+        positiveSentimentList[x] = 0
+
+for x in range(0, len(negativeSentimentList)): 
+    if negativeSentimentList[x] > 0: 
+        negativeSentimentList[x] = 0
+
+print(*positiveSentimentList)
+print()
+print(*negativeSentimentList)
+
+"""fig = plt.figure()
 ax = plt.subplot(111)
-ax.bar('dates', values, width=1, color='b')
-ax.bar('dates', values, width=1, color='r')
-fig.draw()
-fig.show()
+ax.bar('dates', positiveSentimentList, width=.1, color='b')
+ax.bar('dates', negativeSentimentList, width=.1, color='r')"""
+
+values.drop(columns=['id'], inplace=True)
+
+print(values.iloc[:, 0])
+
+print(values.columns[0])
+
+#print(values.head())
+
+plt.figure(figsize=(10, 6))
+plt.bar(values['created_at'], values['compound'], color=['green' if v > 0 else 'red' for v in values['compound']])
+plt.xlabel('Row Index')
+plt.ylabel('Sentiment')
+plt.title('Bar Graph with Sentiment analysis of amazon tweets over time')
+plt.grid(True)
+plt.show()
+
+#plt.draw()
 #print(*negativeSentiment, sep='\n')
 
 #print(type(sentimentList[0]))
