@@ -67,6 +67,8 @@ for sentence in amazonText:
     vs = analyzer.polarity_scores(sentence)
     sentimentList.append(vs)
     
-print(sentimentList)
-    
+#print(*sentimentList, sep="\n")
+
+negativeSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] < 0)
+positiveSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] > 0)
 
