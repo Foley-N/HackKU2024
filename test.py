@@ -32,18 +32,22 @@ df = import_csv()
 
 sentences = df['text'].tolist()
 
-print(searchDF(df, sentences, ['$AMZN']))
+amazonTweets = searchDF(df, sentences, ['$AMZN']).sort_values(by='created_at', ascending=True, na_position='first')
 
-"""print(df.head())
-
-sentences = df['text'].tolist()
+amazonText = amazonTweets['text'].tolist()
 
 analyzer = SentimentIntensityAnalyzer()
 
-sentence = analyzer.polarity_scores(sentences[115])
+"""sentence = analyzer.polarity_scores(sentences[115])
 print(sentences[115])
-print(sentence)
+print(sentence)"""
 
-for sentence in sentences:
+sentimentList = []
+
+for sentence in amazonText:
     vs = analyzer.polarity_scores(sentence)
-    print("{:-<65} {}".format(sentence, str(vs))) """
+    sentimentList.append(vs)
+    
+print(sentimentList)
+    
+
