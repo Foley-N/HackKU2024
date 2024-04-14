@@ -44,7 +44,7 @@ df = import_csv()
 
 sentences = df['text'].tolist()
 
-amazonTweets = searchDF(df, sentences, ['$AMZN']).sort_values(by='created_at', ascending=True, na_position='first')
+amazonTweets = searchDF(df, sentences, ['$AMZN', 'amazon']).sort_values(by='created_at', ascending=True, na_position='first')
 
 newDF = searchDF(df, sentences, ['$AMZN'])
 
@@ -62,7 +62,7 @@ analyzer = SentimentIntensityAnalyzer()
 print(sentences[115])
 print(sentence)"""
 
-"""sentimentList = []
+sentimentList = []
 
 for sentence in amazonText:
     vs = analyzer.polarity_scores(sentence)
@@ -71,6 +71,8 @@ for sentence in amazonText:
 #print(*sentimentList, sep="\n")
 
 sentimentDF = pd.DataFrame(sentimentList)
+
+print(sentimentDF)
 
 amazonTweets['neg'] = sentimentDF['neg'].values
 amazonTweets['neu'] = sentimentDF['neu'].values
@@ -82,7 +84,9 @@ print(amazonTweets)
 negativeSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] < 0)
 positiveSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] > 0)
 
+print(amazonTweets.groupby(['created_at']).mean('compound'))
+
 #print(*negativeSentiment, sep='\n')
 
 #print(type(sentimentList[0]))
-"""
+
