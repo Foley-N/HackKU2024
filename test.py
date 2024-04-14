@@ -3,6 +3,7 @@ import os
 import platform
 import datetime
 import vaderSentiment as vs
+import matplotlib.pyplot as plt
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
@@ -95,8 +96,14 @@ print(amazonTweets)
 negativeSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] < 0)
 positiveSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] > 0)
 
-print(amazonTweets.groupby(['created_at']).mean('compound'))
+values = amazonTweets.groupby(['created_at']).mean('compound')
 
+fig = plt.figure()
+ax = plt.subplot(111)
+ax.bar('dates', values, width=1, color='b')
+ax.bar('dates', values, width=1, color='r')
+fig.draw()
+fig.show()
 #print(*negativeSentiment, sep='\n')
 
 #print(type(sentimentList[0]))
