@@ -52,11 +52,11 @@ newDF = searchDF(df, sentences, ['$AMZN'])
 
 dates = (dateRangeDist(2020, 4, 15, 2020, 4, 30))
 
-print(filterByDate(newDF, dates, ['$AMZN']))
+#print(filterByDate(newDF, dates, ['$AMZN']))
 
-#amazonText = amazonTweets['text'].tolist()
+amazonText = amazonTweets['text'].tolist()
 
-#analyzer = SentimentIntensityAnalyzer()
+analyzer = SentimentIntensityAnalyzer()
 
 """sentence = analyzer.polarity_scores(sentences[115])
 print(sentences[115])
@@ -70,6 +70,18 @@ for sentence in amazonText:
     
 #print(*sentimentList, sep="\n")
 
+sentimentDF = pd.DataFrame(sentimentList)
+
+amazonTweets['neg'] = sentimentDF['neg'].values
+amazonTweets['neu'] = sentimentDF['neu'].values
+amazonTweets['pos'] = sentimentDF['pos'].values
+amazonTweets['compound'] = sentimentDF['compound'].values
+
+print(amazonTweets)
+
 negativeSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] < 0)
 positiveSentiment = (sentiment['compound'] for sentiment in sentimentList if sentiment['compound'] > 0)
 
+#print(*negativeSentiment, sep='\n')
+
+#print(type(sentimentList[0]))
