@@ -11,7 +11,7 @@ def import_csv():
     OS = platform.system()
 
     if OS == "Linux":
-        df = pd.read_csv(os.getcwd() + "/tweets/tweets_labelled_09042020_16072020.csv", sep=";")
+        df = pd.read_csv(os.getcwd() + "/tweets/tweets_remaining_09042020_16072020.csv", sep=";")
     elif OS == "Windows":
         df = pd.read_csv(os.getcwd() + "\\tweets\\tweets_labelled_09042020_16072020.csv", sep=";")
     else:
@@ -53,7 +53,7 @@ def datetimeTOdate(df):
 
 df = import_csv()
 
-sentences = df['text'].tolist()
+sentences = df['full_text'].tolist()
 
 amazonTweets = searchDF(df, sentences, ['$AMZN', 'amazon']).sort_values(by='created_at', ascending=True, na_position='first')
 
@@ -65,13 +65,10 @@ dates = (dateRangeDist(2020, 4, 15, 2020, 4, 30))
 print(dates)
 print(datetimeTOdate(newDF))
 
-amazonText = amazonTweets['text'].tolist()
+print(amazonTweets)
+amazonText = amazonTweets['full_text'].tolist()
 
 analyzer = SentimentIntensityAnalyzer()
-
-"""sentence = analyzer.polarity_scores(sentences[115])
-print(sentences[115])
-print(sentence)"""
 
 sentimentList = []
 
@@ -79,8 +76,6 @@ for sentence in amazonText:
     vs = analyzer.polarity_scores(sentence)
     sentimentList.append(vs)
     
-#print(*sentimentList, sep="\n")
-
 sentimentDF = pd.DataFrame(sentimentList)
 
 print(sentimentDF)
@@ -113,18 +108,11 @@ print(*positiveSentimentList)
 print()
 print(*negativeSentimentList)
 
-"""fig = plt.figure()
-ax = plt.subplot(111)
-ax.bar('dates', positiveSentimentList, width=.1, color='b')
-ax.bar('dates', negativeSentimentList, width=.1, color='r')"""
-
 values.drop(columns=['id'], inplace=True)
 
 print(values.iloc[:, 0])
 
 print(values.columns[0])
-
-#print(values.head())
 
 plt.figure(figsize=(10, 6))
 plt.bar(values['created_at'], values['compound'], color=['green' if v > 0 else 'red' for v in values['compound']])
@@ -133,9 +121,4 @@ plt.ylabel('Sentiment')
 plt.title('Bar Graph with Sentiment analysis of amazon tweets over time')
 plt.grid(True)
 plt.show()
-
-#plt.draw()
-#print(*negativeSentiment, sep='\n')
-
-#print(type(sentimentList[0]))
 
